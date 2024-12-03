@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to homepage</h1>
+    {% if user.is_authenticated %}
+        <b>Hello, {{user.username}}</b>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+            <a href="{% url 'password_change' %}">Password Change</a>
+        </form>
+    {% else %}
+        <p>No one logged!</p>
+        <a href="{% url 'password_reset' %}">Password Reset</a>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log In</button>
+        </form>
+        <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Signup</button>
+        </form>
+    {% endif %}
+</body>
+</html>
